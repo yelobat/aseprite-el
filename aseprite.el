@@ -19,7 +19,7 @@
 ;;
 ;;; Code:
 
-;;/home/yelobat/.local/share/Steam/steamapps/common/Aseprite/aseprite
+;;
 
 (require 'transient)
 
@@ -34,6 +34,7 @@
 
 (defconst aseprite--buffer (get-buffer-create "*Aseprite Buffer*"))
 (defconst aseprite--error--buffer (get-buffer-create "*Aseprite Error Buffer"))
+(defconst aseprite--process-name "aseprite-process")
 
 (defun aseprite--sentinel (proc _string)
   "Handle termination of PROC and STRING.
@@ -53,7 +54,7 @@ If PROC is no longer alive, report its exit status in the echo area."
 (defun aseprite--run-async (args)
   "Run Aseprite asynchronously with ARGS."
   (let ((proc (make-process
-              :name "aseprite-process"
+              :name aseprite--process-name
               :buffer (get-buffer-create "*Aseprite Process*")
               :command (append (list aseprite-cli-path) args)
               :filter nil
@@ -109,7 +110,8 @@ If PROC is no longer alive, report its exit status in the echo area."
 
   [:description "Files & I/O"
                 ("--current-file" "Set the current file to be edited" "--current-file=")
-                ("--save-as" "Save the current file into another file format" "--save-as=")]
+                ("--save-as" "Save the current file into another file format" "--save-as=")
+                ("--data" "File to store the sprite sheet metadata" "--data=")]
 
   [:description "Debugging Suffix"
                 ("-a" "Show collected args" aseprite--show-args :transient t)])
@@ -117,7 +119,7 @@ If PROC is no longer alive, report its exit status in the echo area."
 (defun aseprite-kill ()
   "Kill the currently running Aseprite process, if any."
   (interactive)
-  (when-let ((proc (get-process "aseprite-process")))
+  (when-let ((proc (get-process aseprite--process-name)))
     (kill-process proc)
     (message "Aseprite process killed")))
 
