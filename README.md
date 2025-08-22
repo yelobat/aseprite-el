@@ -3,8 +3,8 @@
 ## Table of contents
 
 - [Installation](#installation)
-  - [Manual (Clone)](#1-manual-clone)
-  - [Using straight.el](#2-using-straightel)
+  - [Manual (Clone)](#manual-clone)
+  - [Using straight.el](#straightel)
 - [Basic usage](#basic-usage)
 - [Configuration](#configuration)
 - [License](#license)
