@@ -31,7 +31,7 @@ Use `C-c C-e (elisp-eval-region-or-buffer)` or simply restart Emacs for the chan
 
 ### **`straight.el`**
 
-If you have `straight.el`, simply add the repo to your `straight-use-package` list:
+If you have `straight.el`, simply add the repo via `straight-use-package`:
 
 ``` emacs-lisp
 (straight-use-package
